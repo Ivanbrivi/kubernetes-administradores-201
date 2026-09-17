@@ -27,6 +27,69 @@ Cada módulo tiene un **README** (teoría + demostración) y uno o varios **labo
 
 No instales Docker ni Kubernetes en tu equipo: el laboratorio vive en el Codespace.
 
+## A quién va dirigido
+
+Administradores de sistemas que van a **configurar y administrar** clústeres Kubernetes.
+
+**Requisitos previos:** Linux y línea de comandos; familiaridad con contenedores Docker.
+
+## Temario
+
+Formación práctica: cada bloque tiene teoría en el README del módulo y laboratorios guiados.
+
+### Introducción a Kubernetes — [M01](labs/M01-entorno-codespace-kind/README.md) · [M02](labs/M02-introduccion-kubernetes/README.md)
+
+- Conceptos principales.
+- Arquitectura del clúster.
+- API de Kubernetes.
+- Instalación y validación del entorno (clúster **kind** en Codespace; cada nodo arranca con kubeadm).
+- Laboratorio: instalar el clúster y validar (`kubectl describe nodes`, `kubectl get pods --all-namespaces`).
+
+### Gestión del ciclo de vida de aplicaciones — [M03](labs/M03-ciclo-vida-aplicaciones/README.md)
+
+- Despliegues: actualizaciones y rollbacks.
+- Configuración con ConfigMaps y Secrets.
+- Escalado.
+- Laboratorio: desplegar una aplicación, Rolling Update y rollback.
+
+### Diseño y configuración del clúster — [M04](labs/M04-diseno-cluster-helm/README.md)
+
+- Diseño de clústeres y alta disponibilidad.
+- Redes y comunicación segura.
+- Instalación y despliegue de un clúster.
+- Pruebas de clúster y nodos.
+- Helm para instalar y actualizar aplicaciones y servicios.
+- Laboratorio: clúster HA con maestros redundantes; apagar un maestro; Helm con values personalizados.
+
+### Red y networking — [M05](labs/M05-red-networking/README.md)
+
+- Networking en Kubernetes.
+- Configuración de Pods y Services.
+- Balanceadores de carga.
+- Laboratorio: balancear tráfico entre Pods; NetworkPolicy entre namespaces.
+
+### Seguridad — [M06](labs/M06-seguridad/README.md)
+
+- Autenticación y autorización (RBAC).
+- Certificados TLS.
+- Políticas de red.
+- Laboratorio: usuario con permisos limitados en un namespace; NetworkPolicy entre Pods.
+
+### Mantenimiento y monitorización — [M07](labs/M07-mantenimiento-monitorizacion/README.md)
+
+- Actualización de clústeres y nodos.
+- Políticas de backup y restauración.
+- Prometheus y Grafana.
+- Introducción al Operator Pattern.
+- Laboratorio: Prometheus; backup/restore de etcd; operador (ServiceMonitor / Prometheus Operator).
+
+### Almacenamiento — [M08](labs/M08-almacenamiento/README.md)
+
+- Persistent Volumes (PV) y Persistent Volume Claims (PVC).
+- StorageClasses.
+- StatefulSets.
+- Laboratorio: PV/PVC y persistencia de datos tras reiniciar Pods.
+
 ## Módulos
 
 | # | Módulo | Índice |
