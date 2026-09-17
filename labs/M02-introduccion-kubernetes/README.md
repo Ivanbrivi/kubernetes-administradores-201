@@ -15,20 +15,51 @@
 
 ## Teoría
 
-Un clúster Kubernetes es un **plano de control** que expone una API y unos **nodos** que ejecutan Pods.
+Kubernetes (K8s: ocho letras entre la K y la s) es una plataforma de código abierto para
+**desplegar, escalar y administrar** aplicaciones en contenedores. Nació en Google y se
+donó a la CNCF. Expone una API programática: todo cambio real pasa por ella.
+
+Un clúster es un **plano de control** más unos **nodos** que ejecutan Pods. El orquestador
+permite alta disponibilidad, tolerancia a fallos, escalado y cambios en caliente.
 
 | Plano | Componentes | Pregunta que responden |
 |-------|-------------|------------------------|
 | **Control-plane** | kube-apiserver, etcd, scheduler, controller-manager | ¿Cuál es el estado deseado? ¿Dónde coloco este Pod? |
 | **Nodo** | kubelet, kube-proxy (y el runtime de contenedores) | ¿Este Pod está vivo en esta máquina? |
-| **Red** | CNI (aquí Calico) | ¿Cómo se alcanzan los Pods entre nodos? |
+| **Red** | CNI (aquí Calico) + CoreDNS | ¿Cómo se alcanzan los Pods entre nodos? |
+
+![Control-plane (API, scheduler, etcd) y worker (kubelet, runtime, CNI)](../img/M02-demo-arquitectura.png)
 
 **Objetos** (Deployment, Service, Pod…) son documentos JSON/YAML que envías a la API.
-**etcd** guarda esa verdad. kubectl nunca “habla con Docker”: habla con el apiserver.
+**etcd** es el almacén clave-valor: guarda esa verdad. kubectl nunca “habla con Docker”:
+habla con el apiserver.
+
+| Pieza | Rol |
+|-------|-----|
+| **etcd** | Estado del clúster (lo que el API lee y escribe) |
+| **kube-apiserver** | Centro de gestión; REST/JSON hacia todos los componentes |
+| **kube-controller-manager** | Acerca el estado actual al deseado (réplicas, nodos…) |
+| **kube-scheduler** | Elige el nodo donde cae cada Pod |
+| **kubelet** | En el nodo: recibe el spec y gestiona los Pods locales |
+
+![etcd, apiserver, scheduler y kubelet en los nodos](../img/M02-demo-componentes.png)
 
 > [!NOTE]
-> **Pod** no es un contenedor suelto: es el átomo de scheduling (uno o más contenedores, red y volúmenes compartidos).
+> **Pod** no es un contenedor suelto: es el átomo de scheduling (uno o más contenedores,
+> una IP y, si hace falta, volúmenes compartidos).
 > Un **Deployment** no corre él mismo el proceso: crea ReplicaSets que crean Pods.
+
+![Un Pod puede ser un contenedor o varios que comparten red y volumen](../img/M02-demo-pod.png)
+
+**Labels y selectors** son pares clave/valor para identificar Pods, Services, etc. y
+gestionarlos (el Service y el ReplicaSet “enganchan” por selector, no por nombre de Pod).
+
+![Pods con labels de rol, entorno y versión](../img/M02-demo-labels.png)
+
+Un **nodo** es la máquina de trabajo (antes *minion*): física o virtual. Lleva runtime,
+kubelet y kube-proxy. El control-plane los gestiona.
+
+![Nodos del clúster con pods y contenedores](../img/M02-demo-nodo.png)
 
 kind arranca cada nodo con **kubeadm**. Por eso en el temario aparece kubeadm *o* kind:
 aquí usas kind y **observas** el resultado de kubeadm (`admin.conf`, manifiestos estáticos en
@@ -38,11 +69,13 @@ aquí usas kind y **observas** el resultado de kubeadm (`admin.conf`, manifiesto
 
 > Recorrido que hace el formador en vivo. Tono descriptivo, sin imperativos.
 
-1. Al ejecutar `kubectl get componentstatuses` o, en versiones recientes,
-   `kubectl get pods -n kube-system`, aparecen `kube-apiserver`, `etcd`, `kube-scheduler` y
-   `kube-controller-manager` **en cada control-plane** (estáticos, un pod por nodo).
+1. Al ejecutar `kubectl get pods -n kube-system`, aparecen `kube-apiserver`, `etcd`,
+   `kube-scheduler` y `kube-controller-manager` **en cada control-plane** (estáticos, un
+   pod por nodo). Es el diagrama de arquitectura, pero en tres maestros.
+
 2. `kubectl get --raw=/apis | head` muestra grupos de API (`apps`, `networking.k8s.io`…).
    Todo objeto vive en un grupo/versión/recurso.
+
 3. `docker exec k8s-ops-control-plane ls /etc/kubernetes` lista `admin.conf`, `pki/` y
    `manifests/`: es el arranque kubeadm que kind ya hizo.
 

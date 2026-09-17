@@ -56,6 +56,8 @@ kubectl -n shop exec "$POD" -- sh -c 'echo hola-persistencia >> /data/log.txt &&
 
 **Resultado esperado:** el fichero contiene `hola-persistencia` (y el `start` del entrypoint).
 
+![Volumen del nodo montado en el Pod](../img/M08-demo-volumes.png)
+
 ### 4 — Matar el Pod y releer
 
 **Acción:**

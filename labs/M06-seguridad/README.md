@@ -25,7 +25,11 @@ Después RBAC **autoriza**: Role (un namespace) o ClusterRole (todo el clúster)
 | Grupo | `O=` del certificado | Grupos del IdP |
 
 TLS del **apiserver** ya lo generó kubeadm/kind (`/etc/kubernetes/pki`).
-TLS que tú montas en este módulo es el del **borde HTTP** (Secret `kubernetes.io/tls` + Ingress).
+TLS que tú montas en este módulo es el del **borde HTTP** (Secret `kubernetes.io/tls` + Ingress),
+el mismo patrón que un cert-manager en un clúster de verdad.
+
+Los **Secrets** guardan credenciales; no son magia: van en etcd (base64). El Role de `appuser`
+no debe listarlos. Los namespaces (`shop` vs `kube-system`) son el primer corte de organización.
 
 > [!NOTE]
 > Un Role Binding a `User: appuser` no funciona si el kubeconfig sigue usando el cliente **admin**.

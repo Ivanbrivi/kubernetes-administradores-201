@@ -41,6 +41,8 @@ kubectl -n kube-system get pods -o wide | grep -E 'apiserver|etcd|scheduler|cont
 
 **Resultado esperado:** tres filas de cada componente, `Running`, cada una en un nodo `control-plane*`.
 
+![API Server, etcd, scheduler y kubelet](../img/M02-demo-arquitectura.png)
+
 ### 3 — La API en crudo
 
 **Acción:**

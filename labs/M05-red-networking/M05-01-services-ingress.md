@@ -29,6 +29,8 @@ kubectl -n shop get po,ep,svc -l app=shop-web
 
 **Resultado esperado:** tres IPs en `endpoints/shop-web`.
 
+![Service balanceando a Pods en varios nodos](../img/M05-demo-service.png)
+
 ### 2 — Aplicar Ingress y el cliente de red
 
 **Acción:**

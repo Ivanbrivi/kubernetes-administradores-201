@@ -14,7 +14,15 @@
 
 ## Teoría
 
-Cada Pod recibe una IP del CIDR de Calico (`192.168.0.0/16` aquí). Esa IP muere con el Pod.
+Cada Pod recibe una IP del CIDR de Calico (`192.168.0.0/16` aquí). Esa IP muere con el Pod,
+así que no sirve como nombre estable. Un **Service** es la abstracción que agrupa Pods
+(por labels) y define **cómo acceder** a ellos (ClusterIP, NodePort, puerto).
+
+![Service delante de Pods en varios nodos](../img/M05-demo-service.png)
+
+**Ingress** mapea host y rutas HTTP hacia Services. En cloud suele haber un balanceador
+de pago delante; aquí el controller **ingress-nginx** (proxy inverso) entra por `:8080`/`:8443`
+del Codespace.
 
 | Tipo | Alcance | Uso típico |
 |------|---------|------------|

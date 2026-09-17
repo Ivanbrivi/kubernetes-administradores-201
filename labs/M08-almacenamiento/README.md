@@ -14,7 +14,10 @@
 
 ## Teoría
 
-El sistema de ficheros del contenedor **muere con el Pod**. Lo que debe sobrevivir va a un volumen.
+El sistema de ficheros del contenedor **muere con el Pod**. Lo que debe sobrevivir va a un
+volumen montado en el Pod (varios contenedores del mismo Pod pueden compartirlo).
+
+![Volúmenes en el nodo, montados en los Pods](../img/M08-demo-volumes.png)
 
 | Objeto | Analogía |
 |--------|----------|

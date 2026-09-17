@@ -32,9 +32,14 @@ El clúster del curso se llama **`k8s-ops`**. Nace ya como clúster **operativo 
 - CNI **Calico** (NetworkPolicy de verdad)
 - **ingress-nginx**, **metrics-server**, StorageClass **local-path**
 
+El control-plane (API) reparte trabajo a los workers, que son quienes ejecutan los contenedores:
+
+![Máster con API y workers con kubelet](../img/M02-demo-master-workers.png)
+
 > [!NOTE]
 > kind no sustituye un datacenter. Sí te deja practicar los **mismos objetos y fallos**
 > (API, etcd, Deployments, RBAC) que un administrador ve en un clúster real.
+> Las diapos clásicas dibujan **un** máster; `k8s-ops` levanta **tres** para HA.
 
 ### Scripts (`scripts/`)
 
@@ -63,6 +68,10 @@ k8s-ops-control-plane3    Ready   control-plane
 k8s-ops-worker            Ready   <none>
 k8s-ops-worker2           Ready   <none>
 ```
+
+   Analogía visual: el control-plane es el “barco de mando”; los workers, la carga.
+
+![Control-plane y workers](../img/M02-demo-cluster.png)
 
 ## Ahora practica tú
 

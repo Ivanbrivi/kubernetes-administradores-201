@@ -32,6 +32,8 @@ kubectl -n shop get rs
 
 **Resultado esperado:** `rollout status` ok; un RS antiguo con 0 réplicas y uno nuevo con 2.
 
+![Deployment con ReplicaSet v1 y v2](../img/M03-demo-replicaset.png)
+
 ### 2 — Verificar la versión
 
 **Acción:**

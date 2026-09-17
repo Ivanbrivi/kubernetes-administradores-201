@@ -31,6 +31,10 @@ Un snapshot que **nunca** has intentado leer no es un backup. El restore de etcd
 delicado (identidad de miembros). En el lab verificas el snapshot y simulas el fallo;
 si el restore crudo rompe el quórum, `cluster-up` reconstruye el laboratorio.
 
+**Componentes habituales** de un clúster que ya no es “vacío”: proxy inverso (Ingress),
+TLS (cert-manager o un Secret como en M06), **Prometheus / Grafana** y, en muchos sitios, logs
+(Kibana). Este módulo cubre métricas; el proxy y el TLS ya los montaste.
+
 **Operator Pattern.** Extiendes la API con un CRD y un controlador que reconcilia.
 Prometheus Operator vigila objetos `Prometheus` y `ServiceMonitor` y materializa el scrape.
 

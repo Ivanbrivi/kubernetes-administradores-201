@@ -21,6 +21,15 @@ Dos maestros no bastan: un fallo te deja sin mayoría.
 kind, con varios `role: control-plane`, crea un contenedor **external-load-balancer** delante
 de los kube-apiserver. kubectl habla con el LB, no con un maestro concreto.
 
+El esquema de un nodo máster (API + etcd + scheduler) y workers (kubelet) es el mismo;
+la diferencia de este lab es **repetir el máster tres veces**.
+
+![API Server, etcd y kubelet](../img/M02-demo-arquitectura.png)
+
+> [!WARNING]
+> Material introductorio a menudo dice “sólo hay un máster”. Eso no es un clúster operativo
+> de administración: sin quórum, `docker stop` de ese nodo tumba la API. Aquí hay tres.
+
 | Capa | Qué hay en este lab |
 |------|---------------------|
 | Nodos | 3 CP + 2 workers (kind = kubeadm por nodo) |
