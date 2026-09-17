@@ -1,0 +1,25 @@
+---
+description: Contexto del curso Kubernetes para Administradores — leer antes de editar
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+# Curso Kubernetes para Administradores
+
+## Workspace correcto
+
+Trabaja en **`kubernetes-administradores-201`** (`/home/david/Cursos/kubernetes-administradores-201`), **no** en `/home/david/Cursos/template`.
+
+## Memoria del bootstrap
+
+Lee **`.agent/HILO-INICIAL.md`** (temario, decisiones, backlog) y luego `.agent/diseno/contexto.md`, `.agent/SEED.md`.
+
+## Repo
+
+- Local: `/home/david/Cursos/kubernetes-administradores-201`
+- GitHub: `my-it-labs/kubernetes-administradores-201`
+
+## Norma
+
+Tras montar o crear el curso, el agente y el autor deben operar **solo** en este workspace, no en el template.

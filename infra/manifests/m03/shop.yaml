@@ -1,0 +1,90 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: shop
+  labels:
+    purpose: demo
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shop-config
+  namespace: shop
+data:
+  APP_TITLE: "Tienda del clúster"
+  APP_ENV: "lab"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: shop-secret
+  namespace: shop
+type: Opaque
+stringData:
+  APP_TOKEN: "lab-token-no-usar-en-prod"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shop-web
+  namespace: shop
+  labels:
+    app: shop-web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: shop-web
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: shop-web
+    spec:
+      containers:
+        - name: web
+          image: hashicorp/http-echo:1.0.0
+          args:
+            - "-text=shop-web v1"
+            - "-listen=:8080"
+          ports:
+            - containerPort: 8080
+              name: http
+          envFrom:
+            - configMapRef:
+                name: shop-config
+            - secretRef:
+                name: shop-secret
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 2
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: 25m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 64Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shop-web
+  namespace: shop
+  labels:
+    app: shop-web
+spec:
+  selector:
+    app: shop-web
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+  type: ClusterIP

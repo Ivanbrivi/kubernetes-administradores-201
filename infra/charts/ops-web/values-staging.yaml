@@ -1,0 +1,5 @@
+replicaCount: 3
+message: "ops-web staging"
+ingress:
+  enabled: true
+  host: ops.local

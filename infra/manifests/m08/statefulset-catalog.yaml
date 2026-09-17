@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: catalog
+  namespace: shop
+spec:
+  serviceName: catalog
+  replicas: 2
+  selector:
+    matchLabels:
+      app: catalog
+  template:
+    metadata:
+      labels:
+        app: catalog
+    spec:
+      containers:
+        - name: db
+          image: busybox:1.37
+          command: ["sh", "-c", "echo replica $HOSTNAME >> /data/id.txt && sleep infinity"]
+          volumeMounts:
+            - name: catalog-data
+              mountPath: /data
+          resources:
+            requests:
+              cpu: 25m
+              memory: 32Mi
+  volumeClaimTemplates:
+    - metadata:
+        name: catalog-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: local-path
+        resources:
+          requests:
+            storage: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalog
+  namespace: shop
+spec:
+  clusterIP: None
+  selector:
+    app: catalog
+  ports:
+    - port: 80
+      name: dummy

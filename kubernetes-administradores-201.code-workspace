@@ -1,0 +1,13 @@
+{
+  "folders": [
+    {
+      "name": "kubernetes-administradores-201",
+      "path": "/home/david/Cursos/kubernetes-administradores-201"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/.git": true
+    }
+  }
+}
