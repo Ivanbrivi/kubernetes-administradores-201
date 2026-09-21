@@ -16,10 +16,6 @@
     "3000": { "label": "Grafana (M07)", "onAutoForward": "silent" },
     "9090": { "label": "Prometheus (M07)", "onAutoForward": "silent" }
   },
-  "hostRequirements": {
-    "cpus": 8,
-    "memory": "16gb"
-  },
   "customizations": {
     "vscode": {
       "extensions": [
