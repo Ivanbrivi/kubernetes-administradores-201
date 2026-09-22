@@ -1,0 +1,16 @@
+# Prod: no monta el código; usa la etapa runtime (multistage).
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    image: m00-web:prod
+    ports:
+      - "8888:80"
+    volumes: []
+  api:
+    image: hashicorp/http-echo:1.0.0
+    command: ["-text=api-prod", "-listen=:8080"]
+    ports:
+      - "8889:8080"

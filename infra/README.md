@@ -24,6 +24,7 @@ Reset:
 
 | Ruta | Uso |
 |------|-----|
+| `m00/` | Web visual, Dockerfiles y Compose del bloque previo (puertos 8888/8889) |
 | `kind/cluster.yaml` | kind `k8s-ops`: 3 control-plane + 2 workers, sin CNI por defecto |
 | `addons/calico.yaml` | CNI + NetworkPolicy (Calico v3.29.3) |
 | `addons/ingress-nginx.yaml` | Ingress controller para kind (puertos 80/443 del nodo) |

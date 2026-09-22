@@ -1,0 +1,16 @@
+# Entorno de desarrollo: build desde este directorio + recarga del HTML.
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: m00-web:dev
+    ports:
+      - "8888:80"
+    volumes:
+      - ./site:/usr/share/nginx/html:ro
+  api:
+    image: hashicorp/http-echo:1.0.0
+    command: ["-text=soy la api del compose", "-listen=:8080"]
+    ports:
+      - "8889:8080"

@@ -1,10 +1,11 @@
 # Kubernetes para Administradores
 
-[Siguiente página →](labs/M01-entorno-codespace-kind/README.md)
+[Siguiente página →](labs/M00-fundamentos-contenedores/README.md)
 
 Formación **100 % práctica** para **administrar un clúster Kubernetes operativo**.
-Trabajas en **GitHub Codespaces** con **kind**: levantas el clúster, despliegas aplicaciones,
-configuras red y seguridad, monitorizas y persistes datos.
+Si no has usado Docker, empiezas por **M00** (contenedores en el Codespace).
+Después levantas el clúster con **kind**, despliegas aplicaciones, configuras red y
+seguridad, monitorizas y persistes datos.
 
 ## Cómo funciona el curso
 
@@ -31,11 +32,21 @@ No instales Docker ni Kubernetes en tu equipo: el laboratorio vive en el Codespa
 
 Administradores de sistemas que van a **configurar y administrar** clústeres Kubernetes.
 
-**Requisitos previos:** Linux y línea de comandos; familiaridad con contenedores Docker.
+**Requisitos previos:** Linux y línea de comandos. **No hace falta** saber Docker:
+eso se trabaja en M00, en el mismo Codespace.
 
 ## Temario
 
 Formación práctica: cada bloque tiene teoría en el README del módulo y laboratorios guiados.
+
+### Fundamentos de contenedores (previo) — [M00](labs/M00-fundamentos-contenedores/README.md) · [M00 imágenes](labs/M00-imagenes-compose-cicd/README.md)
+
+- El contenedor como proceso; `ENTRYPOINT`, `CMD` y args.
+- Estados, `docker ps` y limpieza.
+- Interacción (`logs`, `exec`), puertos (web visible en Codespace) y volúmenes.
+- Dockerfile, build, tags y **multistage**.
+- Docker Compose (dev con build context y prod).
+- CI/CD con GitHub Actions hasta publicar en GHCR.
 
 ### Introducción a Kubernetes — [M01](labs/M01-entorno-codespace-kind/README.md) · [M02](labs/M02-introduccion-kubernetes/README.md)
 
@@ -94,6 +105,8 @@ Formación práctica: cada bloque tiene teoría en el README del módulo y labor
 
 | # | Módulo | Índice |
 |---|--------|--------|
+| M00 | Fundamentos de contenedores | [labs/M00-fundamentos-contenedores/](labs/M00-fundamentos-contenedores/README.md) |
+| M00 | Imágenes, Compose y registro | [labs/M00-imagenes-compose-cicd/](labs/M00-imagenes-compose-cicd/README.md) |
 | M01 | Entorno Codespace y kind | [labs/M01-entorno-codespace-kind/](labs/M01-entorno-codespace-kind/README.md) |
 | M02 | Introducción a Kubernetes | [labs/M02-introduccion-kubernetes/](labs/M02-introduccion-kubernetes/README.md) |
 | M03 | Ciclo de vida de aplicaciones | [labs/M03-ciclo-vida-aplicaciones/](labs/M03-ciclo-vida-aplicaciones/README.md) |
@@ -105,4 +118,4 @@ Formación práctica: cada bloque tiene teoría en el README del módulo y labor
 
 ## Empieza aquí
 
-→ **[M01 — Entorno Codespace y kind](labs/M01-entorno-codespace-kind/README.md)**
+→ **[M00 — Fundamentos de contenedores](labs/M00-fundamentos-contenedores/README.md)** (si ya dominas Docker, puedes saltar a [M01](labs/M01-entorno-codespace-kind/README.md))

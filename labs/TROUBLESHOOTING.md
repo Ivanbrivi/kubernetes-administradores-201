@@ -1,5 +1,16 @@
 # Solución de problemas — clúster kind en Codespace
 
+## Docker o puertos de M00
+
+```bash
+docker info
+./scripts/m00-clean.sh
+```
+
+- **8888 ocupado:** queda un nginx de M00. El script anterior lo quita.
+- **Ports no muestra 8888:** Forward a Port → `8888`, o recarga la ventana del Codespace.
+- **`name already in use`:** `docker rm -f m00-web m00-sleep` o `m00-clean.sh`.
+
 ## El Codespace no tiene `kind`
 
 El `postCreate` aún no ha terminado. Ejecuta:

@@ -1,6 +1,6 @@
 # M01 — Entorno Codespace y kind
 
-[← Página anterior](../../README.md) · [Siguiente página →](M01-01-bootstrap-entorno.md)
+[← Página anterior](../M00-imagenes-compose-cicd/M00-10-actions-ghcr.md) · [Siguiente página →](M01-01-bootstrap-entorno.md)
 
 > [!NOTE]
 > **Cómo funciona este módulo.** Primero la **teoría**, luego la **demostración guiada** del

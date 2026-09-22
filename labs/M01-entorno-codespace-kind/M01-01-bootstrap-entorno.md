@@ -12,6 +12,7 @@ Dejar operativo tu fork, el Codespace y las herramientas (`docker`, `kind`, `kub
 
 - Cuenta GitHub personal.
 - Navegador actualizado y permiso para crear Codespaces.
+- Si Docker te suena a nuevo, haz antes **[M00](../M00-fundamentos-contenedores/README.md)**.
 
 ### En qué consiste
 

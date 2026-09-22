@@ -9,8 +9,10 @@
     }
   },
   "postCreateCommand": "chmod +x scripts/*.sh && bash scripts/bootstrap-tools.sh",
-  "forwardPorts": [8080, 8443, 3000, 9090],
+  "forwardPorts": [8888, 8889, 8080, 8443, 3000, 9090],
   "portsAttributes": {
+    "8888": { "label": "M00 Web", "onAutoForward": "notify" },
+    "8889": { "label": "M00 API", "onAutoForward": "silent" },
     "8080": { "label": "Ingress HTTP", "onAutoForward": "notify" },
     "8443": { "label": "Ingress HTTPS", "onAutoForward": "silent" },
     "3000": { "label": "Grafana (M07)", "onAutoForward": "silent" },

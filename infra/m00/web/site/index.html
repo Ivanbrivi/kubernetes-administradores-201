@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>M00 — Web en el contenedor</title>
+  <style>
+    :root { color-scheme: dark; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: system-ui, sans-serif;
+      background: #12352c;
+      color: #f4fff8;
+    }
+    .card {
+      background: #0c241e;
+      padding: 3rem 3.5rem;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .35);
+      max-width: 36rem;
+    }
+    .badge {
+      display: inline-block;
+      background: #3dd68c;
+      color: #0c241e;
+      font-weight: 700;
+      padding: .35rem 1rem;
+      border-radius: 999px;
+      letter-spacing: .04em;
+    }
+    h1 { font-size: 2.4rem; margin: 1.2rem 0 .6rem; }
+    p { line-height: 1.5; color: #c9e8d8; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <p class="badge">v1 · puerto 8888</p>
+    <h1>Hola desde el contenedor</h1>
+    <p>Si ves esta tarjeta en el navegador, Docker ha publicado el puerto y el Codespace lo ha reenviado hasta tu pestaña.</p>
+  </div>
+</body>
+</html>
