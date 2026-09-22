@@ -10,7 +10,7 @@ Levantar **web + API** con Compose, usando el **build context** y el volumen de 
 
 ### Prerrequisitos
 
-- [M00-07](M00-07-multistage-tags.md). Libera 8888/8889: `./scripts/m00-clean.sh`.
+- [M00-07](M00-07-multistage-tags.md). Libera 8888/8889: `docker ps` y `docker rm -f` de lo que los use. Si dejaste un compose: `docker compose -f infra/m00/web/compose.yaml down`.
 
 ### En qué consiste
 
@@ -117,6 +117,6 @@ http-echo registra peticiones. Tras los `curl` a 8889 deberías ver líneas de a
 
 | Síntoma | Causa probable | Cómo arreglarlo |
 |---------|----------------|-----------------|
-| `port is already allocated` | `m00-web` suelto | `./scripts/m00-clean.sh` y otra vez `up` |
+| `port is already allocated` | `m00-web` suelto | `docker rm -f m00-web` y otra vez `up` |
 | `wget: not found` | Imagen sin wget | En `nginx:alpine` existe `wget`; no uses `curl` dentro si no está |
 | HTML no cambia | Editaste `site-v2` o no guardaste | Edita `infra/m00/web/site/index.html` |

@@ -10,7 +10,7 @@ Leer logs, ejecutar comandos en un contenedor **vivo** y comprobar que `exec` no
 
 ### Prerrequisitos
 
-- [M00-02](M00-02-entrypoint-cmd-args.md). `./scripts/m00-clean.sh` si tienes nombres ocupados.
+- [M00-02](M00-02-entrypoint-cmd-args.md). Si un nombre `m00-*` está ocupado: `docker rm -f NOMBRE`.
 
 ### En qué consiste
 

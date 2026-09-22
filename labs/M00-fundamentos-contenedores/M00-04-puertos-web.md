@@ -10,7 +10,7 @@ Publicar el puerto 80 de nginx en el **8888** del Codespace y **ver la página**
 
 ### Prerrequisitos
 
-- [M00-03](M00-03-interactuar.md). `./scripts/m00-clean.sh`. Nada más debe usar el 8888.
+- [M00-03](M00-03-interactuar.md). Nada más debe usar el 8888. Si está ocupado: `docker ps` y `docker rm -f` de ese contenedor.
 
 ### En qué consiste
 
@@ -121,7 +121,7 @@ El cuerpo es `hola-api`. El mapeo es 8889 (Codespace) → 8080 (proceso http-ech
 
 | Síntoma | Causa probable | Cómo arreglarlo |
 |---------|----------------|-----------------|
-| `port is already allocated` | Otro `m00-web` o kind | `./scripts/m00-clean.sh`; no arranques el clúster kind aún |
+| `port is already allocated` | Otro contenedor en 8888 | `docker ps` y `docker rm -f` de ese nombre; no arranques kind aún |
 | curl Connection refused | Olvidaste `-p` o el contenedor no está Up | `docker ps`; repite el `run -p 8888:80` |
 | Navegador 404 en github.dev | Abriste otro puerto | Ports → **8888** |
 | Sigue el nginx de fábrica | Caché del navegador o no recargaste | Recarga forzada; `curl` para confirmar |

@@ -10,7 +10,7 @@ Construir `m00-web:v1` a partir de `Dockerfile.dev` y ver la tarjeta verde **sin
 
 ### Prerrequisitos
 
-- M00-01 a M00-05. `./scripts/m00-clean.sh`. Estás en la **raíz** del repo.
+- M00-01 a M00-05. Estás en la **raíz** del repo. Si 8888 está ocupado: `docker ps` y `docker rm -f NOMBRE`.
 
 ### En qué consiste
 
@@ -105,5 +105,5 @@ Al menos `m00-web:v1`. El IMAGE ID identifica las capas; el tag es la etiqueta.
 | Síntoma | Causa probable | Cómo arreglarlo |
 |---------|----------------|-----------------|
 | `site/: not found` | Context incorrecto | Último argumento: `infra/m00/web` |
-| Puerto ocupado | Contenedor anterior | `./scripts/m00-clean.sh` |
+| Puerto ocupado | Contenedor anterior | `docker ps` y `docker rm -f NOMBRE` |
 | Welcome to nginx | Construiste otra carpeta / no usaste `-f Dockerfile.dev` | Revisa el comando del paso 2 |

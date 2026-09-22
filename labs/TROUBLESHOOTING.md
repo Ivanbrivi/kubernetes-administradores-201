@@ -4,12 +4,14 @@
 
 ```bash
 docker info
-./scripts/m00-clean.sh
+docker ps -a
+docker rm -f m00-web m00-sleep m00-hola
+docker compose -f infra/m00/web/compose.yaml down
 ```
 
-- **8888 ocupado:** queda un nginx de M00. El script anterior lo quita.
+- **8888 ocupado:** `docker ps` te dice el nombre; `docker rm -f` ese nombre.
 - **Ports no muestra 8888:** Forward a Port → `8888`, o recarga la ventana del Codespace.
-- **`name already in use`:** `docker rm -f m00-web m00-sleep` o `m00-clean.sh`.
+- **`name already in use`:** `docker rm -f` del nombre que indica el error.
 
 ## El Codespace no tiene `kind`
 

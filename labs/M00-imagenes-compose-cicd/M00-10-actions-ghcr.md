@@ -79,10 +79,16 @@ Si el login falla, sáltate el pull: el objetivo del lab es **ver el paquete pub
 **Acción:**
 
 ```bash
-./scripts/m00-clean.sh
+docker compose -f infra/m00/web/compose.yaml down
+docker compose -f infra/m00/web/compose.prod.yaml down
+docker ps -a
+docker rm -f m00-web m00-echoer m00-api
+docker ps
 ```
 
-**Por qué:** M01 levantará kind. Mejor sin contenedores M00 ocupando 8888.
+Omite los `rm` que no existan (Docker se queja y sigues).
+
+**Por qué:** M01 levantará kind. Tienes que dejar 8888 libre **tú**, contenedor a contenedor.
 
 **Resultado esperado:** `docker ps` sin `m00-*` ni servicios compose `web`.
 

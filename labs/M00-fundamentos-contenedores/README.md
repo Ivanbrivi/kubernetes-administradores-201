@@ -115,8 +115,8 @@ montado) sobrevive.
    muestra `sleep` como PID 1.
 3. `docker run -d --name m00-web -p 8888:80 nginx:1.27-alpine` y la pestaña **Ports → 8888**
    abre la página de bienvenida de nginx: el puerto se ve, no solo se “declara”.
-4. Tras `docker stop` / `docker rm`, `docker ps -a` queda limpio. `./scripts/m00-clean.sh`
-   hace esa limpieza de un golpe.
+4. Tras `docker stop` y `docker rm` de cada nombre (`m00-sleep`, `m00-web`…),
+   `docker ps -a` queda limpio. No hay script: se borra contenedor a contenedor.
 
 ## Ahora practica tú
 

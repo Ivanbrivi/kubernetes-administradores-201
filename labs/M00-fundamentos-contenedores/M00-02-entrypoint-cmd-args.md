@@ -10,7 +10,7 @@ Ver qué proceso se lanza de verdad al hacer `docker run`, y cómo `run … args
 
 ### Prerrequisitos
 
-- [M00-01](M00-01-contenedor-proceso.md). Codespace con Docker. Entorno limpio: `./scripts/m00-clean.sh`.
+- [M00-01](M00-01-contenedor-proceso.md). Codespace con Docker. Si `docker ps -a` lista un `m00-*`, bórralo: `docker rm -f NOMBRE`.
 
 ### En qué consiste
 

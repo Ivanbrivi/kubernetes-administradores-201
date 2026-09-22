@@ -10,7 +10,7 @@ Demostrar que un bind mount refleja tus ediciones en el navegador, y que un volu
 
 ### Prerrequisitos
 
-- [M00-04](M00-04-puertos-web.md). `./scripts/m00-clean.sh`.
+- [M00-04](M00-04-puertos-web.md). Si 8888 está ocupado: `docker ps` y `docker rm -f NOMBRE`.
 
 ### En qué consiste
 
@@ -92,13 +92,14 @@ docker volume ls --filter name=m00-datos
 **Acción:**
 
 ```bash
+docker rm -f m00-web
 docker volume rm m00-datos
-./scripts/m00-clean.sh
+docker volume ls
 ```
 
 **Por qué:** Los volúmenes no se van con `docker rm`. Si no los borras, ocupan sitio.
 
-**Resultado esperado:** `m00-datos` desaparece de `docker volume ls`.
+**Resultado esperado:** `m00-datos` desaparece de `docker volume ls`. No queda `m00-web`.
 
 ## Comprueba tu entendimiento
 

@@ -110,4 +110,4 @@ Deberías ver `dev`, `prod`, `v1`, `v2` según lo que hayas construido. Prod es 
 |---------|----------------|-----------------|
 | Sigue el compose de dev | No hiciste `down` del otro fichero | `compose.yaml down` y luego `compose.prod.yaml up` |
 | No hay `build-info.txt` | Estás en dev o en `:v1` de Dockerfile.dev | Este lab usa `Dockerfile` + `target: runtime` |
-| Puerto ocupado | Contenedor suelto `m00-web` | `./scripts/m00-clean.sh` |
+| Puerto ocupado | Contenedor suelto `m00-web` | `docker rm -f m00-web` |

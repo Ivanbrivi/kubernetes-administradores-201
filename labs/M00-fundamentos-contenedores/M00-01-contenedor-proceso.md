@@ -13,7 +13,7 @@ Arrancar contenedores, verlos como procesos (`docker ps`, `docker top`) y dejar 
 - Estás en un **Codespace** de este repo (fork → **Code → Codespaces → Create codespace on main**).
 - En la terminal: `docker info` responde sin error.
 
-Si `docker` no existe, espera a que termine el `postCreate` o ejecuta `bash scripts/bootstrap-tools.sh`.
+Si `docker` no existe, espera a que el Codespace termine de arrancar y vuelve a probar `docker info`.
 
 ### En qué consiste
 
@@ -82,18 +82,21 @@ docker ps -a --filter name=m00-
 
 **Resultado esperado:** tras `rm`, el filtro `m00-` no lista nada.
 
-### 5 — Limpieza de práctica
+### 5 — Limpieza a mano
 
-**Acción:** si en algún momento se te acumulan contenedores de este módulo:
+**Acción:** lista y borra por nombre (sustituye los que tengas):
 
 ```bash
-./scripts/m00-clean.sh
+docker ps -a
+docker rm -f m00-hola m00-sleep
 docker ps -a
 ```
 
-**Por qué:** Antes de Kubernetes (M01) no quieres contenedores huérfanos comiendo nombres de puerto.
+Si hay más `Exited` que no quieras, `docker container prune` pide confirmación y borra **todos** los parados.
 
-**Resultado esperado:** el script lista lo que borra; `docker ps -a` sin contenedores `m00-*`.
+**Por qué:** Tienes que ver qué existe (`ps -a`) y elegir el nombre. Un script te lo oculta.
+
+**Resultado esperado:** `docker ps -a` sin `m00-hola` ni `m00-sleep`.
 
 ## Comprueba tu entendimiento
 
@@ -107,7 +110,7 @@ docker ps -a
 
 Arranca otra vez `docker run -d --name m00-sleep alpine:3.20 sleep 3600`. Compara `docker ps` y `docker ps -a`.
 
-→ `ps` solo el Running; `ps -a` también los Exited. Luego `./scripts/m00-clean.sh`.
+→ `ps` solo el Running; `ps -a` también los Exited. Luego `docker rm -f m00-sleep`.
 
 ## Reto
 
@@ -130,5 +133,5 @@ Estado `Exited (7)`. El número es el código de salida del PID 1, no “el puer
 | Síntoma | Causa probable | Cómo arreglarlo |
 |---------|----------------|-----------------|
 | `Cannot connect to the Docker daemon` | Codespace aún arrancando | Espera; `docker info` |
-| `The container name … is already in use` | No borraste el anterior | `docker rm -f m00-hola` (o `m00-clean.sh`) |
+| `The container name … is already in use` | No borraste el anterior | `docker rm -f m00-hola` |
 | `docker ps` vacío pero “sí lo creé” | Está Exited | `docker ps -a` |
