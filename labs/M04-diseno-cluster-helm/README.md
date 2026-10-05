@@ -1,6 +1,6 @@
 # M04 — Diseño y configuración del clúster
 
-[← Página anterior](../M03-ciclo-vida-aplicaciones/M03-02-rolling-rollback-escala.md) · [Siguiente página →](M04-01-ha-fallo-maestro.md)
+[← Página anterior](../M03-ciclo-vida-aplicaciones/M03-02-configmap-secret.md) · [Siguiente página →](M04-01-ha-fallo-maestro.md)
 
 > [!NOTE]
 > **Cómo funciona este módulo.** Primero la **teoría**, luego la **demostración guiada** del

@@ -58,10 +58,10 @@ Formación práctica: cada bloque tiene teoría en el README del módulo y labor
 
 ### Gestión del ciclo de vida de aplicaciones — [M03](labs/M03-ciclo-vida-aplicaciones/README.md)
 
-- Despliegues: actualizaciones y rollbacks.
-- Configuración con ConfigMaps y Secrets.
-- Escalado.
-- Laboratorio: desplegar una aplicación, Rolling Update y rollback.
+- Deployment, ReplicaSet y Pods: quién crea a quién.
+- Escalado, canary, pases de versión, imagen que falla y rollback (todo con manifiestos).
+- ConfigMaps y Secrets.
+- Laboratorio: primero lo básico del controlador; después config. El Service se trabaja en M05.
 
 ### Diseño y configuración del clúster — [M04](labs/M04-diseno-cluster-helm/README.md)
 
@@ -77,7 +77,7 @@ Formación práctica: cada bloque tiene teoría en el README del módulo y labor
 - Networking en Kubernetes.
 - Configuración de Pods y Services.
 - Balanceadores de carga.
-- Laboratorio: balancear tráfico entre Pods; NetworkPolicy entre namespaces.
+- Laboratorio: endpoints del Service; un Pod impostor con las mismas labels; NetworkPolicy entre namespaces.
 
 ### Seguridad — [M06](labs/M06-seguridad/README.md)
 
