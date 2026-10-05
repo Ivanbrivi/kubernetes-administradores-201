@@ -95,5 +95,5 @@ Un ConfigMap ya montado como env **no** se refresca solo: hace falta nuevo Pod.
 
 | Síntoma | Causa probable | Cómo arreglarlo |
 |---------|----------------|-----------------|
-| ImagePullBackOff | Docker Hub lento | Reintentar; el curso usa imágenes pequeñas |
+| ImagePullBackOff | `docker pull` no alimenta a kind; o el nodo no resuelve DNS | `kubectl describe po`; `bash scripts/kind-load-image.sh IMAGEN`; [TROUBLESHOOTING](../TROUBLESHOOTING.md) |
 | wget: bad address | Lanzaste curl fuera de `shop` | `-n shop` o FQDN `shop-web.shop.svc.cluster.local` |

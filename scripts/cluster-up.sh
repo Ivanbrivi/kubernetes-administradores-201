@@ -11,12 +11,21 @@ if ! command -v kind >/dev/null 2>&1; then
   exit 1
 fi
 
+bash "$ROOT/scripts/kind-net-fix.sh" || true
+
+GW="$(docker network inspect kind -f '{{(index .IPAM.Config 0).Gateway}}' 2>/dev/null || echo 172.18.0.1)"
+PROXY="http://${GW}:3128"
+NOP="localhost,127.0.0.1,10.96.0.0/16,10.244.0.0/16,172.16.0.0/12,.svc,.cluster.local"
+
 if ! kind get clusters 2>/dev/null | grep -qx "$CLUSTER_NAME"; then
-  echo "Creando clúster $CLUSTER_NAME (kind HA)…"
-  kind create cluster --name "$CLUSTER_NAME" --config "$CONFIG"
+  echo "Creando clúster $CLUSTER_NAME (1 control-plane + 2 workers)…"
+  HTTP_PROXY="$PROXY" HTTPS_PROXY="$PROXY" NO_PROXY="$NOP" \
+    kind create cluster --name "$CLUSTER_NAME" --config "$CONFIG"
 else
   echo "Clúster $CLUSTER_NAME ya existe."
 fi
+
+bash "$ROOT/scripts/kind-net-fix.sh" || true
 
 kubectl cluster-info --context "kind-${CLUSTER_NAME}" >/dev/null
 kubectl config use-context "kind-${CLUSTER_NAME}" >/dev/null

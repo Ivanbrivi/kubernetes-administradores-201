@@ -3,11 +3,8 @@ apiVersion: kind.x-k8s.io/v1alpha4
 name: k8s-ops
 networking:
   disableDefaultCNI: true
-  podSubnet: "192.168.0.0/16"
-  serviceSubnet: "10.96.0.0/12"
 nodes:
   - role: control-plane
-    image: kindest/node:v1.32.2
     kubeadmConfigPatches:
       - |
         kind: InitConfiguration
@@ -21,11 +18,5 @@ nodes:
       - containerPort: 443
         hostPort: 8443
         protocol: TCP
-  - role: control-plane
-    image: kindest/node:v1.32.2
-  - role: control-plane
-    image: kindest/node:v1.32.2
   - role: worker
-    image: kindest/node:v1.32.2
   - role: worker
-    image: kindest/node:v1.32.2

@@ -14,7 +14,7 @@
 
 ## Teoría
 
-Cada Pod recibe una IP del CIDR de Calico (`192.168.0.0/16` aquí). Esa IP muere con el Pod,
+Cada Pod recibe una IP del CIDR de Calico (`10.244.0.0/16` aquí). Esa IP muere con el Pod,
 así que no sirve como nombre estable. Un **Service** es la abstracción que agrupa Pods
 (por labels) y define **cómo acceder** a ellos (ClusterIP, NodePort, puerto).
 

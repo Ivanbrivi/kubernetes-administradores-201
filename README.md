@@ -20,7 +20,7 @@ Cada módulo tiene un **README** (teoría + demostración) y uno o varios **labo
 | Requisito | Detalle |
 |-----------|---------|
 | Cuenta GitHub | Personal y gratuita |
-| Codespace | Recomendado **8 vCPU / 16 GB RAM** (clúster HA + monitorización) |
+| Codespace | Recomendado **8 vCPU / 16 GB RAM** (Prometheus en M07) |
 | Navegador | Chromium actualizado |
 | Conexión | Salida a GitHub, GHCR, `registry.k8s.io` y Docker Hub |
 | Infraestructura | [infra/README.md](infra/README.md) |
@@ -70,7 +70,7 @@ Formación práctica: cada bloque tiene teoría en el README del módulo y labor
 - Instalación y despliegue de un clúster.
 - Pruebas de clúster y nodos.
 - Helm para instalar y actualizar aplicaciones y servicios.
-- Laboratorio: clúster HA con maestros redundantes; apagar un maestro; Helm con values personalizados.
+- Laboratorio: un control-plane y dos workers; parar el maestro y ver el efecto; Helm con values personalizados.
 
 ### Red y networking — [M05](labs/M05-red-networking/README.md)
 

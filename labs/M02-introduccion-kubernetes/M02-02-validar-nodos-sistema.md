@@ -104,4 +104,4 @@ Debe caer en un **worker** (taint de control-plane). Si cayera en un maestro, el
 | Síntoma | Causa probable | Cómo arreglarlo |
 |---------|----------------|-----------------|
 | `top` error | metrics-server aún arrancando o sin `--kubelet-insecure-tls` | Espera; el addon del curso ya lleva el flag |
-| Pods Calico CrashLoop | CIDR distinto al de kind | `cluster.yaml` usa `192.168.0.0/16` (default Calico) |
+| Pods Calico CrashLoop | CIDR distinto al de kind | `cluster.yaml` y Calico usan `10.244.0.0/16` |
