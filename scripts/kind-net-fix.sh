@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
-# Codespaces (Docker 29): la red Docker "kind" no tiene NAT a Internet.
+# Codespaces (Docker 29): la red Docker "kind" no tiene NAT a Internet
+# y, con br_netfilter, los nodos ni siquiera se hablan entre sí.
 # Este script:
 # 1) Crea esa red solo IPv4 (evita ip6tables).
-# 2) Levanta un proxy CONNECT en la gateway de kind (el host SÍ tiene red).
-# 3) Configura containerd de cada nodo con HTTPS_PROXY → kubelet puede hacer pull.
+# 2) Apaga bridge-nf-call-iptables para que kubeadm join llegue a :6443.
+# 3) Levanta un proxy CONNECT en la gateway de kind (el host SÍ tiene red).
+# 4) Configura containerd de cada nodo con HTTPS_PROXY → kubelet puede hacer pull.
 set -u
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -18,10 +20,43 @@ if ! docker info >/dev/null 2>&1; then
   exit 0
 fi
 
+write_sysctl() {
+  local path="$1" val="$2"
+  if [ ! -e "$path" ]; then
+    return 0
+  fi
+  if [ -w "$path" ]; then
+    echo "$val" >"$path" 2>/dev/null || true
+  elif command -v sudo >/dev/null 2>&1; then
+    echo "$val" | sudo -n tee "$path" >/dev/null 2>&1 || true
+  fi
+}
+
+iptables_try() {
+  if command -v sudo >/dev/null 2>&1 && sudo -n true 2>/dev/null; then
+    sudo iptables "$@"
+  else
+    iptables "$@"
+  fi
+}
+
+# Sin esto, Docker 29 mete el puente kind en iptables FORWARD y
+# "Joining worker nodes" se queda colgado (worker ↛ API :6443).
+relax_kind_bridge() {
+  write_sysctl /proc/sys/net/bridge/bridge-nf-call-iptables 0
+  write_sysctl /proc/sys/net/bridge/bridge-nf-call-ip6tables 0
+  write_sysctl /proc/sys/net/ipv4/ip_forward 1
+  iptables_try -C FORWARD -m physdev --physdev-is-bridged -j ACCEPT 2>/dev/null \
+    || iptables_try -I FORWARD 1 -m physdev --physdev-is-bridged -j ACCEPT 2>/dev/null \
+    || true
+}
+
 if [ -w /proc/sys/net/ipv4/ip_forward ]; then
   echo 1 >/proc/sys/net/ipv4/ip_forward 2>/dev/null || true
 fi
 modprobe ip6_tables 2>/dev/null || true
+modprobe br_netfilter 2>/dev/null || true
+relax_kind_bridge
 
 ensure_kind_network() {
   if docker network inspect kind >/dev/null 2>&1; then
@@ -92,5 +127,8 @@ export KIND_NO_PROXY="localhost,127.0.0.1,10.96.0.0/16,10.244.0.0/16,172.16.0.0/
 for node in $(docker ps --filter "label=io.x-k8s.kind.cluster" --format '{{.Names}}' 2>/dev/null); do
   configure_node_containerd_proxy "$node" "$GW"
 done
+
+# Docker puede reactivar br_netfilter al crear la red o arrancar nodos.
+relax_kind_bridge
 
 exit 0

@@ -59,6 +59,17 @@ En Codespaces actuales (Docker 29) la red Docker `kind` **no tiene NAT**. El kub
 solo hace pull si `scripts/kind-net-fix.sh` deja un proxy CONNECT en la gateway
 (`172.18.0.1:3128`) y `containerd` usa `HTTPS_PROXY`. `cluster-up.sh` ya lo lanza.
 
+Si `kind create` se queda en **Joining worker nodes**, los workers no llegan al
+API (`:6443`). En Docker 29 `bridge-nf-call-iptables=1` tira ese tráfico. No hace
+falta matar el proceso: `cluster-up.sh` apaga ese sysctl mientras crea el clúster.
+Si ya está colgado:
+
+```bash
+sudo sysctl -w net.bridge.bridge-nf-call-iptables=0
+```
+
+y espera unos segundos; el join suele continuar.
+
 Los Pods **siguen sin navegar** a Internet (eso es la red del Pod/CNI). Lo que se
 arregla es **bajar imágenes**. `wget` desde dentro de un Pod a `1.1.1.1` puede fallar
 y no contradice un ImagePull correcto.
