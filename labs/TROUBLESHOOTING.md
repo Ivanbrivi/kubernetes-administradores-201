@@ -141,6 +141,32 @@ M01–M06; Prometheus (M07) pide 16 GB.
 kubectl config use-context kind-k8s-ops
 ```
 
+## Port-forward a un Pod o un Service (Codespace)
+
+`kubectl port-forward` por defecto escucha solo en `127.0.0.1`. La pestaña **Ports** del
+Codespace entra por otra interfaz: ves el puerto y el navegador no carga.
+
+**Así sí** (cambia namespace, servicio y puertos):
+
+```bash
+kubectl -n shop port-forward --address 0.0.0.0 svc/shop-web 18080:80
+```
+
+Debe salir `Forwarding from 0.0.0.0:18080 -> 80`. Luego Ports → **18080** (o
+`curl -s http://127.0.0.1:18080/` en la terminal del Codespace).
+
+`--address 0.0.0.0` es lo que hace usable el PF aquí. Sin eso, `curl` a localhost en la
+**misma** terminal puede ir, y la URL de GitHub no.
+
+No uses `8080`: Kind ya lo tiene ocupado con Ingress.
+
+Si **no** aparece `Forwarding from` y se queda colgado, el apiserver no habla con el
+kubelet del worker (`:10250`). Eso no lo arregla `--address`. Opciones:
+
+1. `kubectl get nodes` — si un worker está NotReady, arréglalo primero.
+2. Entra por **Ingress** (`curl -sH 'Host: shop.local' http://127.0.0.1:8080/`), que no usa port-forward.
+3. Recrear el clúster: `./scripts/cluster-down.sh && ./scripts/cluster-up.sh`.
+
 ## `curl` a Ingress no responde en `:8080`
 
 - El mapeo hostPort está en el **primer** control-plane (`ingress-ready=true`).
