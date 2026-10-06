@@ -96,17 +96,44 @@ bash scripts/bootstrap-tools.sh
 command -v kind kubectl helm docker
 ```
 
-## Nodos `NotReady`
+## Un worker `NotReady`
 
-Calico tarda en arrancar, o el Codespace se queda sin RAM.
+En Codespaces pasa a menudo: Calico con **IPIP/BGP** no peera en la red Docker de Kind,
+o kubelet no se recupera tras el proxy de `containerd`. El nodo sin CNI se queda NotReady.
+
+**Ver qué nodo y por qué** (copia el NAME de la tabla):
 
 ```bash
 kubectl get nodes
-kubectl get pods -A | grep -E 'calico|kube-system'
-./scripts/health-check.sh
+kubectl describe node k8s-ops-worker2
+kubectl -n kube-system get pods -o wide
 ```
 
-Si sigue igual: **Codespace 16 GB** y `./scripts/cluster-down.sh && ./scripts/cluster-up.sh`.
+En `describe`, busca `NetworkUnavailable` o `KubeletNotReady`. En los pods, el
+`calico-node-…` de **ese** nodo: si está `0/1`, `CrashLoop` o `ImagePullBackOff`, el
+worker no puede ponerse Ready.
+
+**Arreglo en caliente** (sustituye el nombre de **tu** worker):
+
+```bash
+docker exec k8s-ops-worker2 systemctl restart kubelet
+kubectl get nodes
+```
+
+Espera 20 s. Si `calico-node` no tira imagen: `bash scripts/kind-net-fix.sh` y otra vez
+el `restart kubelet`.
+
+**Arreglo de verdad** (el `cluster-up` del repo ya usa Calico en VXLAN, no IPIP):
+
+```bash
+git pull
+./scripts/cluster-down.sh
+./scripts/cluster-up.sh
+kubectl get nodes
+```
+
+Los tres deben quedar `Ready`. Un Codespace de **2 núcleos / 8 GB** también vale para
+M01–M06; Prometheus (M07) pide 16 GB.
 
 ## Contexto kubectl incorrecto
 
